@@ -16,7 +16,7 @@ License URI: https://www.gnu.org/licenses/lgpl-3.0.en.html
 WooCommerce plugin which sends messages to a shiftr.io MQTT instance on order state changes and for low stock/out of stock nofifications.
 
 The following topics are published to MQTT:
-* <topic_prefix>/orders/payment-pending
+* <topic_prefix>/orders/pending
 * <topic_prefix>/orders/on-hold
 * <topic_prefix>/orders/processing
 * <topic_prefix>/orders/completed
@@ -25,14 +25,17 @@ The following topics are published to MQTT:
 * <topic_prefix>/orders/failed
 * <topic_prefix>/stock/low
 * <topic_prefix>/stock/out
+* <topic_prefix>/stats/orders
 
 A message is published to a topic when an order or product transitions to that state.  The payload of the message is either the order id or the product_id.
 
 The data transmitted is kept to the bear minimum to limit the data exposure over MQTT.  Further information may be retrieved by the end point using the standard WooCommerce API by querying the order or product by id.
 
+The stats topics are published to each time any other message is sent.  They contain a JSON payload which for orders is an array of order states with the corresponding totals.  Further stats topics are in the to-do list.
+
 == Installation ==
 
-1. Upload plugin `simple-paypal-recurring-donations` folder to the `/wp-content/plugins/` directory.
+1. Upload plugin `mqtt-woo-alerts` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
 3. You can adjust the necessary settings using your WordPress admin panel in "MQTTWoo".
 4. Create a page or a post, customize button settings and insert generated shortcode into the text.
@@ -53,3 +56,10 @@ By default the topic prefix is empty, but it may be set to allow the topics to f
 
 = 0.1.0 - 20th June 2020 =
 * Initial Release.
+
+= 0.2.0 - 21st June 2020 =
+* Corrected typo in readme
+* Added stats/orders topic.
+
+= To Do =
+* Add stats/stocks topic to report counts of out-of-stock and low-stock items.

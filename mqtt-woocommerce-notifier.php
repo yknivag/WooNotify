@@ -232,20 +232,51 @@ function shiftrwoo_send_message( $topic, $payload ) {
 function shiftrwoo_orders( $order_id, $old_status, $new_status ) {
 	$topic = "orders/" . $new_status;
 	shiftrwoo_send_message( $topic, $order_id );
+	shiftrwoo_stats_orders();
+	shiftrwoo_stats_stock();
 }
 add_action( 'woocommerce_order_status_changed', 'shiftrwoo_orders', 10, 4 );
 
 function shiftrwoo_stock_low( $product_id ) {
 	$topic = "stock/low";
 	shiftrwoo_send_message( $topic, $product_id );
+	shiftrwoo_stats_orders();
+	shiftrwoo_stats_stock();
 }
 add_action( 'woocommerce_low_stock', 'shiftrwoo_stock_low', 10, 4 );
 
 function shiftrwoo_stock_out( $product_id ) {
 	$topic = "stock/out";
 	shiftrwoo_send_message( $topic, $product_id );
+	shiftrwoo_stats_orders();
+	shiftrwoo_stats_stock();
 }
 add_action( 'woocommerce_no_stock', 'shiftrwoo_stock_out', 10, 4 );
+
+function shiftrwoo_stats_orders() {
+	$topic = "stats/orders";
+	$order_stats = array (
+		'payment-pending' => wc_orders_count( 'pending' ),
+		'on-hold' => wc_orders_count( 'on-hold' ),
+		'processing' => wc_orders_count( 'processing' ),
+		'completed' => wc_orders_count( 'completed' ),
+		'cancelled' => wc_orders_count( 'cancelled' ),
+		'refunded' => wc_orders_count( 'refunded' ),
+		'failed' => wc_orders_count( 'failed' )
+	);
+	$payload = json_encode( $order_stats );
+	shiftrwoo_send_message( $topic, $payload );
+}
+
+function shiftrwoo_stats_stock() {
+	$topic = "stats/stock";
+	$stock_stats = array (
+		'low-stock' => get_transient( 'wc_low_stock_count' ),
+		'out-of-stock' => get_transient( 'wc_outofstock_count' )
+	);
+	$payload = json_encode( $stock_stats );
+	//shiftrwoo_send_message( $topic, $payload );
+}
 
 register_activation_hook( __FILE__, 'wooshiftrmqtt_register_settings' );
 
