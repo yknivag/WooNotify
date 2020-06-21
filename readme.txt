@@ -1,4 +1,4 @@
-=== MQTT WooCommerce Alerts ===
+=== MQTT Woo Alerts ===
 Contributors: yknivag
 Donate link: https://www.paypal.me/yknivag
 Tags: woocommerce, mqtt, shiftr.io, notify, notifier
