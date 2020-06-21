@@ -27,7 +27,7 @@ if ( ! function_exists ( 'wooshiftrmqtt_plugin_init' ) ) {
 // Adding admin plugin settings page function
 if ( ! function_exists( 'add_wooshiftrmqtt_admin_menu' ) ) {
 	function add_wooshiftrmqtt_admin_menu() {
-		add_menu_page( __( 'MQTTWoo', 'wooshiftrmqtt' ), __( 'MQTTWoo', 'wooshiftrmqtt' ), 'manage_options', 'wooshiftrmqtt_plugin', 'wooshiftrmqtt_settings_page', 'dashicons-heart');
+		add_menu_page( __( 'MQTTWoo', 'wooshiftrmqtt' ), __( 'MQTTWoo', 'wooshiftrmqtt' ), 'manage_options', 'wooshiftrmqtt_plugin', 'wooshiftrmqtt_settings_page', 'dashicons-networking');
 		//call register settings function
 	}
 }
