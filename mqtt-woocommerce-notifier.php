@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: MQTT Woo Alerts
+ * Plugin Name: MQTT Alerts for WooCommerce
  * Plugin URI:  https://github.com/yknivag/WooShiftrMQTT
- * Description: WooCommerce plugin which sends messages to a shiftr.io MQTT instance on certain events.
- * Version:     0.1.0
+ * Description: Plugin to WooCommerce which sends messages to a shiftr.io MQTT instance on certain events.
+ * Version:     0.2.1
  * Author:      yknivag
  * License:     LGPL3
  * License URI: https://www.gnu.org/licenses/lgpl-3.0.en.html
@@ -204,6 +204,9 @@ function shiftrwoo_send_message( $topic, $payload ) {
 	$retained   = $wooshiftrmqtt_options[ 'wooshiftrmqtt_shiftr_retain' ];
 	$qos        = $wooshiftrmqtt_options[ 'wooshiftrmqtt_shiftr_qos' ];
 
+	//From shiftr.io documentation - request format
+	//// curl -X POST 'http://username:password@broker.shiftr.io/foo/bar?retained=true&qos=0' -d 'Hello World!'
+
 	$url = "http://";
 	$url.= $username;
 	$url.= ":";
@@ -217,16 +220,17 @@ function shiftrwoo_send_message( $topic, $payload ) {
 	$url.= "&qos=";
 	$url.= $qos;
 
-	//// curl -X POST 'http://username:password@broker.shiftr.io/foo/bar?retained=true&qos=0' -d 'Hello World!'
-	$ch = curl_init();
-	curl_setopt( $ch, CURLOPT_URL, $url );
-	curl_setopt( $ch, CURLOPT_POST, 1 );
-	curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
-	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-	curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT ,3 );
-	curl_setopt( $ch, CURLOPT_TIMEOUT, 20 );
-	$response = curl_exec( $ch );
-	curl_close( $ch );
+	$args = array(
+		'body'        => $payload,
+		'timeout'     => '5',
+		'redirection' => '5',
+		'httpversion' => '1.0',
+		'blocking'    => true,
+		'headers'     => array(),
+		'cookies'     => array(),
+	);
+
+	wp_remote_post( $url, $args );
 }
 
 function shiftrwoo_orders( $order_id, $old_status, $new_status ) {
@@ -269,10 +273,12 @@ function shiftrwoo_stats_orders() {
 }
 
 function shiftrwoo_stats_stock() {
+	//TO-DO - Try to determine a way to retrieve these values without heave DB queries.
+	//Not implemented yet, not mentioned yet in readme.
 	$topic = "stats/stock";
 	$stock_stats = array (
-		'low-stock' => get_transient( 'wc_low_stock_count' ),
-		'out-of-stock' => get_transient( 'wc_outofstock_count' )
+		'low-stock' => 0,
+		'out-of-stock' => 0
 	);
 	$payload = json_encode( $stock_stats );
 	//shiftrwoo_send_message( $topic, $payload );

@@ -1,19 +1,19 @@
-=== MQTT Woo Alerts ===
+=== MQTT Alerts for WooCommerce ===
 Contributors: yknivag
 Donate link: https://www.paypal.me/yknivag
 Tags: woocommerce, mqtt, shiftr.io, notify, notifier
 Requires PHP: 7.0
 Requires at least: 5.2
 Tested up to: 5.4
-Stable tag: 0.1.0
+Stable tag: 0.2.1
 License: LGPLv3 or later
 License URI: https://www.gnu.org/licenses/lgpl-3.0.en.html
 
 == Description ==
 
-# WooShiftrMQTT
+# MQTT Alerts for WooCommerce
 
-WooCommerce plugin which sends messages to a shiftr.io MQTT instance on order state changes and for low stock/out of stock nofifications.
+Plugin to WooCommerce which sends messages to a shiftr.io MQTT instance on order state changes and for low stock/out of stock nofifications.
 
 The following topics are published to MQTT:
 * <topic_prefix>/orders/pending
@@ -60,6 +60,9 @@ By default the topic prefix is empty, but it may be set to allow the topics to f
 = 0.2.0 - 21st June 2020 =
 * Corrected typo in readme
 * Added stats/orders topic.
+
+= 0.2.1 - 23rd June 2020 =
+* Changes required following WordPress plugin library submission
 
 = To Do =
 * Add stats/stocks topic to report counts of out-of-stock and low-stock items.
