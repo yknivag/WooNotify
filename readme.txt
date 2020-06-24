@@ -1,4 +1,4 @@
-=== MQTT Alerts for WooCommerce ===
+=== Alerts via MQQT for WooCommerce ===
 Contributors: yknivag
 Donate link: https://www.paypal.me/yknivag
 Tags: woocommerce, mqtt, shiftr.io, notify, notifier
@@ -35,7 +35,7 @@ The stats topics are published to each time any other message is sent.  They con
 
 == Installation ==
 
-1. Upload plugin `mqtt-woo-alerts` folder to the `/wp-content/plugins/` directory.
+1. Upload plugin `wc-mqtt-alerts` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
 3. You can adjust the necessary settings using your WordPress admin panel in "MQTTWoo".
 4. Create a page or a post, customize button settings and insert generated shortcode into the text.

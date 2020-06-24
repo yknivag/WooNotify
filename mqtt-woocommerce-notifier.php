@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: MQTT Alerts for WooCommerce
+ * Plugin Name: Alerts via MQQT for WooCommerce
  * Plugin URI:  https://github.com/yknivag/WooShiftrMQTT
  * Description: Plugin to WooCommerce which sends messages to a shiftr.io MQTT instance on certain events.
  * Version:     0.2.1
