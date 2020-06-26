@@ -133,7 +133,7 @@ if ( ! function_exists( 'wooshiftrmqtt_settings_page' ) ) {
 							<p><?php esc_html_e( 'For order events the topic is orders/<state> where <state> is the state an order has just moved to.  The payload is the order number.', 'wooshiftrmqtt' ); ?></p>
 							<p><?php esc_html_e( 'For stock events the topic is either stock/low or stock/out and the payload is the product id.', 'wooshiftrmqtt' ); ?></p>
 						<h4><?php esc_html_e( 'Setting up shiftr.io', 'wooshiftrmqtt' ); ?></h4>
-    				    	<p><?php esc_html_e( 'If you don\'t already have one, create an account at <a href="https://shiftr.io/" target="_blank">https://shiftr.io/</a> and create a Namespace for this project.', 'wooshiftrmqtt' ); ?></p>
+    				    	<p><?php esc_html_e( 'If you don\'t already have one, create an account at https://shiftr.io/ and create a Namespace for this project.', 'wooshiftrmqtt' ); ?></p>
     				    	<p><?php esc_html_e( 'In the namespace settings, create a full-access token and make a note of the credentials.', 'wooshiftrmqtt' ); ?></p>
     				    <h4><?php esc_html_e( 'Setting up plugin', 'wooshiftrmqtt' ); ?></h4>
     				    	<p><?php esc_html_e( 'Once you have completed the setup at shiftr.io then simply insert credentials you created below.', 'wooshiftrmqtt' ); ?></p>
