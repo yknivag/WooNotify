@@ -1,17 +1,5 @@
-=== Alerts via MQQT for WooCommerce ===
-Contributors: yknivag
-Donate link: https://www.paypal.me/yknivag
-Tags: woocommerce, mqtt, shiftr.io, notify, notifier
-Requires PHP: 7.0
-Requires at least: 5.2
-Tested up to: 5.4
-Stable tag: 0.2.2
-License: LGPLv3 or later
-License URI: https://www.gnu.org/licenses/lgpl-3.0.en.html
-
-== Description ==
-
-# MQTT Alerts for WooCommerce
+# WooNotify
+## MQTT Alerts for WooCommerce
 
 Plugin to WooCommerce which sends messages to a shiftr.io MQTT instance on order state changes and for low stock/out of stock nofifications.
 
@@ -36,35 +24,35 @@ The stats topics are published to each time any other message is sent.  They con
 
 MQTT may be used to feed many different devices and services.  For example the feed could be consumed by NodeRed, Home Assistant or, of course, an Arduino.  Sample Arduino sketches may be found at https://github.com/yknivag/WooNofity-Arduino - more sketches will be added in due course.
 
-== Installation ==
+## Installation
 
 1. Upload plugin `wc-mqtt-alerts` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
 3. You can adjust the necessary settings using your WordPress admin panel in "MQTTWoo".
 4. Create a page or a post, customize button settings and insert generated shortcode into the text.
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
-= Why use MQTT instead of the API =
+### Why use MQTT instead of the API
 Calls to the API put a load on the server and to make a "real-time" update the API would have to be called at least every 5 minuntes and that would put a substantial load on the server.
 The idea behind this plugin is to use MQTT to push an event notification so that the API need only be called when a change is detected.
 
-= Why shiftr.io =
+### Why shiftr.io
 It's free and it works well.  In essence the plugin posts to a URL using basic authentication and so could be used with any other MQTT broker with an HTTP interface that follows the same pattern.  Or your own server.
 
-= What is the topic prefix =
+### What is the topic prefix
 By default the topic prefix is empty, but it may be set to allow the topics to fit in with an existing MQTT infrastructure.
 
-== Changelog ==
+## Changelog
 
-= 0.1.0 - 20th June 2020 =
+### 0.1.0 - 20th June 2020
 * Initial Release.
 
-= 0.2.0 - 21st June 2020 =
+### 0.2.0 - 21st June 2020
 * Corrected typo in readme.
 * Added stats/orders topic.
 
-= 0.2.1 - 23rd June 2020 =
+### 0.2.1 - 23rd June 2020
 * Changes required following WordPress plugin library submission.
 
 ### 0.2.2 - 26th June 2020
@@ -72,5 +60,5 @@ By default the topic prefix is empty, but it may be set to allow the topics to f
 * Updated GitHub Link.
 * Added link to Proof Of Concept Ardnuino sketches.
 
-= To Do =
+### To Do
 * Add stats/stocks topic to report counts of out-of-stock and low-stock items.

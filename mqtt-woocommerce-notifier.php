@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Alerts via MQQT for WooCommerce
- * Plugin URI:  https://github.com/yknivag/WooShiftrMQTT
+ * Plugin URI:  https://github.com/yknivag/WooNotify
  * Description: Plugin to WooCommerce which sends messages to a shiftr.io MQTT instance on certain events.
- * Version:     0.2.1
+ * Version:     0.2.2
  * Author:      yknivag
  * License:     LGPL3
  * License URI: https://www.gnu.org/licenses/lgpl-3.0.en.html
@@ -133,7 +133,7 @@ if ( ! function_exists( 'wooshiftrmqtt_settings_page' ) ) {
 							<p><?php esc_html_e( 'For order events the topic is orders/<state> where <state> is the state an order has just moved to.  The payload is the order number.', 'wooshiftrmqtt' ); ?></p>
 							<p><?php esc_html_e( 'For stock events the topic is either stock/low or stock/out and the payload is the product id.', 'wooshiftrmqtt' ); ?></p>
 						<h4><?php esc_html_e( 'Setting up shiftr.io', 'wooshiftrmqtt' ); ?></h4>
-    				    	<p><?php esc_html_e( 'If you don\'t already have one, create an account at https://shiftr.io/ and create a Namespace for this project.', 'wooshiftrmqtt' ); ?></p>
+    				    	<p><?php esc_html_e( 'If you don\'t already have one, create an account at <a href="https://shiftr.io/" target="_blank">https://shiftr.io/</a> and create a Namespace for this project.', 'wooshiftrmqtt' ); ?></p>
     				    	<p><?php esc_html_e( 'In the namespace settings, create a full-access token and make a note of the credentials.', 'wooshiftrmqtt' ); ?></p>
     				    <h4><?php esc_html_e( 'Setting up plugin', 'wooshiftrmqtt' ); ?></h4>
     				    	<p><?php esc_html_e( 'Once you have completed the setup at shiftr.io then simply insert credentials you created below.', 'wooshiftrmqtt' ); ?></p>
@@ -235,7 +235,7 @@ function shiftrwoo_send_message( $topic, $payload ) {
 
 function shiftrwoo_orders( $order_id, $old_status, $new_status ) {
 	$topic = "orders/" . $new_status;
-	shiftrwoo_send_message( $topic, $order_id );
+	shiftrwoo_send_message( $topic, (string)$order_id );
 	shiftrwoo_stats_orders();
 	shiftrwoo_stats_stock();
 }
@@ -243,7 +243,7 @@ add_action( 'woocommerce_order_status_changed', 'shiftrwoo_orders', 10, 4 );
 
 function shiftrwoo_stock_low( $product_id ) {
 	$topic = "stock/low";
-	shiftrwoo_send_message( $topic, $product_id );
+	shiftrwoo_send_message( $topic, (string)$product_id );
 	shiftrwoo_stats_orders();
 	shiftrwoo_stats_stock();
 }
@@ -251,7 +251,7 @@ add_action( 'woocommerce_low_stock', 'shiftrwoo_stock_low', 10, 4 );
 
 function shiftrwoo_stock_out( $product_id ) {
 	$topic = "stock/out";
-	shiftrwoo_send_message( $topic, $product_id );
+	shiftrwoo_send_message( $topic, (string)$product_id );
 	shiftrwoo_stats_orders();
 	shiftrwoo_stats_stock();
 }
